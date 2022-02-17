@@ -84,7 +84,7 @@ int main(int, char**)
 
     //计时器线程
     unsigned long timerCount = 0ul;
-    char timerCountBuf[32] = "00:00:00";
+    char timerCountBuf[32] = "0:00:00";
     enum class TimerState
     {
         RUNNING,
@@ -140,7 +140,9 @@ int main(int, char**)
             if (glfwGetWindowAttrib(window, GLFW_HOVERED))
             {
                 setFpsByInterval(1); // 提高帧率
+                glfwSetWindowSize(window, 300, 45);
                 clear_color = ImVec4(.9f, .9f, .9f, 1.0f);
+
                 ImGui::SameLine();
                 if (timerState == TimerState::RUNNING && ImGui::Button("暂停"))
                 {
@@ -176,6 +178,7 @@ int main(int, char**)
             else
             {
                 clear_color = ImVec4(1.0f, 1.0f, 1.0f, 0.00f); // 全透明
+                glfwSetWindowSize(window, 105, 45);
                 setFpsByInterval(12);                          // 降低帧率
             }
 
