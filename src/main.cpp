@@ -58,7 +58,7 @@ int main(int, char**)
     glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
 
     // 创建窗口
-    GLFWwindow* window = glfwCreateWindow(255, 45, "EzPptTimer", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(300, 45, "EzPptTimer", NULL, NULL);
     assert(window);
 
     glfwMakeContextCurrent(window);
@@ -83,7 +83,7 @@ int main(int, char**)
     ImVec4 clear_color = ImVec4(1.0f, 1.0f, 1.0f, 0.00f); // 全透明
 
     //计时器线程
-    int timerCount = 0;
+    unsigned long timerCount = 0;
     char timerCountBuf[32] = "00:00:00";
     enum class TimerState
     {
@@ -99,7 +99,7 @@ int main(int, char**)
             {
             case TimerState::RUNNING:
                 timerCount++;
-                sprintf((char*)timerCountBuf, "%2.2d:%2.2d:%2.2d", timerCount / 3600, timerCount / 60, timerCount % 60);
+                sprintf((char*)timerCountBuf, "%lu:%2.2lu:%2.2lu", timerCount / 3600, timerCount / 60, timerCount % 60);
                 break;
             case TimerState::PAUSED:
                 continue;
@@ -145,6 +145,11 @@ int main(int, char**)
                 if (timerState == TimerState::RUNNING && ImGui::Button("暂停"))
                 {
                     timerState = TimerState::PAUSED;
+                }
+                ImGui::SameLine();
+                if (timerState == TimerState::RUNNING && ImGui::Button("清零"))
+                {
+                    timerCount = 0;
                 }
                 else if (timerState == TimerState::PAUSED && ImGui::Button("恢复"))
                 {
