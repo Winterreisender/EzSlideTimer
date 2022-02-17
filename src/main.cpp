@@ -83,7 +83,7 @@ int main(int, char**)
     ImVec4 clear_color = ImVec4(1.0f, 1.0f, 1.0f, 0.00f); // 全透明
 
     //计时器线程
-    unsigned long timerCount = 0;
+    unsigned long timerCount = 0ul;
     char timerCountBuf[32] = "00:00:00";
     enum class TimerState
     {
@@ -99,7 +99,7 @@ int main(int, char**)
             {
             case TimerState::RUNNING:
                 timerCount++;
-                sprintf((char*)timerCountBuf, "%lu:%2.2lu:%2.2lu", timerCount / 3600, timerCount / 60, timerCount % 60);
+                sprintf((char*)timerCountBuf, "%lu:%2.2lu:%2.2lu", timerCount / 3600, timerCount % 3600 / 60, timerCount % 60);
                 break;
             case TimerState::PAUSED:
                 continue;
@@ -146,21 +146,26 @@ int main(int, char**)
                 {
                     timerState = TimerState::PAUSED;
                 }
-                ImGui::SameLine();
-                if (timerState == TimerState::RUNNING && ImGui::Button("清零"))
-                {
-                    timerCount = 0;
-                }
                 else if (timerState == TimerState::PAUSED && ImGui::Button("恢复"))
                 {
                     timerState = TimerState::RUNNING;
                 }
+
+
+
+                ImGui::SameLine();
+                if (timerState == TimerState::RUNNING && ImGui::Button("清零"))
+                {
+                    timerCount = 0ul;
+                }
+               
                 ImGui::SameLine();
                 if (ImGui::Button("关于"))
                 {
                     ShellExecuteW(NULL, L"open", L"https://gitee.com/winter_reisender/EzPptTimer", NULL, NULL,
                                   SW_SHOWNORMAL);
                 }
+                
                 ImGui::SameLine();
                 if (ImGui::Button("退出"))
                 {
