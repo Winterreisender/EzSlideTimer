@@ -25,7 +25,7 @@ LINUX_GL_LIBS = -lGL
 
 CXXFLAGS = -I$(IMGUI_DIR) -I$(IMGUI_DIR)/backends
 CXXFLAGS += -I./packages
-CXXFLAGS += -g -Wall -Wformat -O1  -static -static-libgcc -static-libstdc++
+CXXFLAGS += -g -Wall -Wformat -O1 -mwindows -static -static-libgcc -static-libstdc++
 LIBS = 
 
 ##---------------------------------------------------------------------
