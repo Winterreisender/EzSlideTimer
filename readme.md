@@ -11,11 +11,12 @@
 
 ## 引用
 
-本程序使用了以下开源软件:
+本项目使用了以下开源软件:
 
 | 项目                                        | 许可  |
 | ----------------------------------------- | --- |
-| [ImGui](https://github.com/ocornut/imgui) | MIT |
+| [Dear ImGui](https://github.com/ocornut/imgui) | [MIT license](https://mit-license.org/) |
+| [glfw](https://www.glfw.org/) | [zlib/libpng license](https://www.glfw.org/license) |
 
 ## 版权与许可
 

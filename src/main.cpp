@@ -92,19 +92,19 @@ int main(int, char**)
     ImVec4 clear_color = windowColorCompact; // 全透明
 
     //计时器线程
-    chrono::steady_clock::time_point beginTime = chrono::steady_clock::now();
-    chrono::steady_clock::duration offset = chrono::nanoseconds(0ll);
-    long long timerCount = 0ul;
+    chrono::steady_clock::time_point beginTime = chrono::steady_clock::now(); //UI写,计时器读
+    chrono::steady_clock::duration offset = chrono::nanoseconds(0ll); //UI写,计时器读
+    long long timerCount = 0ul; // 计时器写,UI读
     enum class TimerState
     {
         RUNNING,
         PAUSED,
         CANCELED
-    } timerState = TimerState::RUNNING; //三个状态 , C++ 没有thread.cancel()
-    std::thread timerThread([&beginTime,&offset,&timerCount, window, timerState]() {
+    } timerState = TimerState::RUNNING; //三个状态 , C++ 没有thread.cancel() UI写,计时器读
+    std::thread timerThread([&beginTime,&offset,&timerCount, window, &timerState]() {
         while (timerState != TimerState::CANCELED)
         {
-            std::this_thread::sleep_for(chrono::seconds(1));
+            std::this_thread::sleep_for(chrono::milliseconds(500ll));
             
             switch (timerState)
             {
@@ -142,7 +142,7 @@ int main(int, char**)
                              ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings);
 
             ImGui::SetNextItemWidth(90.0f);
-            ImGui::Text("%lld:%2.2lld:%2.2lld", timerCount / 3600, timerCount % 3600 / 60, timerCount % 60);
+            ImGui::Text(u8"%lld:%2.2lld:%2.2lld", timerCount / 3600, timerCount % 3600 / 60, timerCount % 60);
             ImGui::SameLine();
             // printf("Average FPS: %.1f\r", ImGui::GetIO().Framerate);
 
@@ -157,9 +157,12 @@ int main(int, char**)
                 if (timerState == TimerState::RUNNING && ImGui::Button("暂停"))
                 {
                     timerState = TimerState::PAUSED;
+                    offset += chrono::steady_clock::now() - beginTime;
+                    // cout << chrono::duration_cast<chrono::seconds>(offset).count() << endl;
                 }
                 else if (timerState == TimerState::PAUSED && ImGui::Button("恢复"))
                 {
+                    beginTime = chrono::steady_clock::now();
                     timerState = TimerState::RUNNING;
                 }
 
@@ -167,6 +170,8 @@ int main(int, char**)
                 if (ImGui::Button("清零"))
                 {
                     timerCount = 0ul;
+                    beginTime = chrono::steady_clock::now();
+                    offset = chrono::nanoseconds(0ll);
                 }
                
                 ImGui::SameLine();
