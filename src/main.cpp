@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <thread>
+#include <chrono>
 
 #include <windows.h>
 using namespace std;
@@ -91,22 +92,24 @@ int main(int, char**)
     ImVec4 clear_color = windowColorCompact; // 全透明
 
     //计时器线程
-    unsigned long timerCount = 0ul;
+    chrono::steady_clock::time_point beginTime = chrono::steady_clock::now();
+    chrono::steady_clock::duration offset = chrono::nanoseconds(0ll);
+    long long timerCount = 0ul;
     enum class TimerState
     {
         RUNNING,
         PAUSED,
         CANCELED
     } timerState = TimerState::RUNNING; //三个状态 , C++ 没有thread.cancel()
-    std::thread timerThread([&timerCount, window, &timerState]() {
+    std::thread timerThread([&beginTime,&offset,&timerCount, window, timerState]() {
         while (timerState != TimerState::CANCELED)
         {
-            std::this_thread::sleep_for(std::chrono::seconds(1));
+            std::this_thread::sleep_for(chrono::seconds(1));
             
             switch (timerState)
             {
             case TimerState::RUNNING:
-                timerCount++;
+                timerCount = chrono::duration_cast<chrono::seconds>(chrono::steady_clock::now() - beginTime + offset).count();
                 break;
             case TimerState::PAUSED:
                 continue;
@@ -139,7 +142,7 @@ int main(int, char**)
                              ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings);
 
             ImGui::SetNextItemWidth(90.0f);
-            ImGui::Text("%lu:%2.2lu:%2.2lu", timerCount / 3600, timerCount % 3600 / 60, timerCount % 60);
+            ImGui::Text("%lld:%2.2lld:%2.2lld", timerCount / 3600, timerCount % 3600 / 60, timerCount % 60);
             ImGui::SameLine();
             // printf("Average FPS: %.1f\r", ImGui::GetIO().Framerate);
 
