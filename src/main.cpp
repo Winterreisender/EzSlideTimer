@@ -6,13 +6,13 @@
 #include <GLFW/glfw3.h>
 
 #include <iostream>
-#include <stdio.h>
 #include <thread>
 
 #include <windows.h>
 using namespace std;
 
-void setFpsByInterval(int interval)
+
+inline void setFpsByInterval(int interval)
 {
     static int currentInterval = 1;
     if (interval != currentInterval)
@@ -24,6 +24,14 @@ void setFpsByInterval(int interval)
 
 int main(int, char**)
 {
+    constexpr int windowHeightCompact = 35;
+    constexpr int windowHeightFull = 42;
+    constexpr int windowWidthFull = 270;
+    const auto windowColorFull = ImVec4(.9f, .9f, .9f, 1.0f);
+    constexpr int windowWidthCompact = 80;
+    const auto windowColorCompact = ImVec4(1.0f, 1.0f, 1.0f, 0.5f);
+    
+
     // Setup window
     glfwSetErrorCallback(
         [](int error, const char* description) { cerr << "Glfw Error" << error << ":" << description << endl; });
@@ -58,7 +66,7 @@ int main(int, char**)
     glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
 
     // 创建窗口
-    GLFWwindow* window = glfwCreateWindow(300, 45, "EzPptTimer", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(windowWidthFull, windowHeightFull, "EzPptTimer", NULL, NULL);
     assert(window);
 
     glfwMakeContextCurrent(window);
@@ -80,26 +88,25 @@ int main(int, char**)
     IM_ASSERT(font != NULL);
 
     //设置默认背景色
-    ImVec4 clear_color = ImVec4(1.0f, 1.0f, 1.0f, 0.00f); // 全透明
+    ImVec4 clear_color = windowColorCompact; // 全透明
 
     //计时器线程
     unsigned long timerCount = 0ul;
-    char timerCountBuf[32] = "0:00:00";
     enum class TimerState
     {
         RUNNING,
         PAUSED,
         CANCELED
     } timerState = TimerState::RUNNING; //三个状态 , C++ 没有thread.cancel()
-    std::thread timerThread([&timerCount, &timerCountBuf, window, &timerState]() {
+    std::thread timerThread([&timerCount, window, &timerState]() {
         while (timerState != TimerState::CANCELED)
         {
             std::this_thread::sleep_for(std::chrono::seconds(1));
+            
             switch (timerState)
             {
             case TimerState::RUNNING:
                 timerCount++;
-                sprintf((char*)timerCountBuf, "%lu:%2.2lu:%2.2lu", timerCount / 3600, timerCount % 3600 / 60, timerCount % 60);
                 break;
             case TimerState::PAUSED:
                 continue;
@@ -132,7 +139,7 @@ int main(int, char**)
                              ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings);
 
             ImGui::SetNextItemWidth(90.0f);
-            ImGui::InputText("##", timerCountBuf, 32, ImGuiInputTextFlags_ReadOnly);
+            ImGui::Text("%lu:%2.2lu:%2.2lu", timerCount / 3600, timerCount % 3600 / 60, timerCount % 60);
             ImGui::SameLine();
             // printf("Average FPS: %.1f\r", ImGui::GetIO().Framerate);
 
@@ -140,8 +147,8 @@ int main(int, char**)
             if (glfwGetWindowAttrib(window, GLFW_HOVERED))
             {
                 setFpsByInterval(1); // 提高帧率
-                glfwSetWindowSize(window, 300, 45);
-                clear_color = ImVec4(.9f, .9f, .9f, 1.0f);
+                glfwSetWindowSize(window, windowWidthFull, windowHeightFull);
+                clear_color = windowColorFull;
 
                 ImGui::SameLine();
                 if (timerState == TimerState::RUNNING && ImGui::Button("暂停"))
@@ -153,10 +160,8 @@ int main(int, char**)
                     timerState = TimerState::RUNNING;
                 }
 
-
-
                 ImGui::SameLine();
-                if (timerState == TimerState::RUNNING && ImGui::Button("清零"))
+                if (ImGui::Button("清零"))
                 {
                     timerCount = 0ul;
                 }
@@ -177,8 +182,8 @@ int main(int, char**)
             }
             else
             {
-                clear_color = ImVec4(1.0f, 1.0f, 1.0f, 0.00f); // 全透明
-                glfwSetWindowSize(window, 105, 45);
+                clear_color = windowColorCompact; // 半透明
+                glfwSetWindowSize(window, windowWidthCompact, windowHeightCompact);
                 setFpsByInterval(12);                          // 降低帧率
             }
 
