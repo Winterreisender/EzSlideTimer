@@ -5,9 +5,6 @@
 ![screenshot1](screenshot-1.png)
 ![screenshot1](screenshot-2.png)
 
-# TODO
-
-- 会有约5秒每小时左右的时间偏差,可考虑用`当前-起点`来计算时间,应注意`暂停`功能的修改
 
 ## 引用
 

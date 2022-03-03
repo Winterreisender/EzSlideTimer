@@ -12,6 +12,9 @@
 #include <windows.h>
 using namespace std;
 
+#if __cplusplus < 201700L
+    #error "This program requires C++ 17 or later"
+#endif
 
 inline void setFpsByInterval(int interval)
 {
@@ -94,7 +97,7 @@ int main(int, char**)
     //计时器线程
     chrono::steady_clock::time_point beginTime = chrono::steady_clock::now(); //UI写,计时器读
     chrono::steady_clock::duration offset = chrono::nanoseconds(0ll); //UI写,计时器读
-    long long timerCount = 0ul; // 计时器写,UI读
+    long long timerCount = 0ul; // 计时器写,UI读写
     enum class TimerState
     {
         RUNNING,
@@ -142,7 +145,7 @@ int main(int, char**)
                              ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings);
 
             ImGui::SetNextItemWidth(90.0f);
-            ImGui::Text(u8"%lld:%2.2lld:%2.2lld", timerCount / 3600, timerCount % 3600 / 60, timerCount % 60);
+            ImGui::Text("%lld:%2.2lld:%2.2lld", timerCount / 3600, timerCount % 3600 / 60, timerCount % 60);
             ImGui::SameLine();
             // printf("Average FPS: %.1f\r", ImGui::GetIO().Framerate);
 
