@@ -1,3 +1,12 @@
+/*
+* main.cpp
+*
+* Copyright 2022 Winterreisender.
+* This file is part of the EzPptTimer.This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, only version 3 of the License.
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
+* You should have received a copy of the GNU Affero General Public License along with this program, see the file LICENSE. If not, see https://www.gnu.org/licenses/.
+*/
+
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
 #include <imgui.h>
@@ -10,21 +19,12 @@
 #include <chrono>
 
 #include <windows.h>
+#include <shellapi.h>
 using namespace std;
 
 #if __cplusplus < 201700L
     #error "This program requires C++ 17 or later"
 #endif
-
-inline void setFpsByInterval(int interval)
-{
-    static int currentInterval = 1;
-    if (interval != currentInterval)
-    {
-        glfwSwapInterval(interval);
-    }
-    currentInterval = interval;
-}
 
 int main(int, char**)
 {
@@ -34,13 +34,14 @@ int main(int, char**)
     const auto windowColorFull = ImVec4(.9f, .9f, .9f, 1.0f);
     constexpr int windowWidthCompact = 80;
     const auto windowColorCompact = ImVec4(1.0f, 1.0f, 1.0f, 0.5f);
+    constexpr int fpsIntervalCompact = 12; // 1/12 垂直同步 60fps屏幕->5fps程序
+    constexpr int fpsIntervalFull = 1; // 1 垂直同步
     
-
-    // Setup window
     glfwSetErrorCallback(
         [](int error, const char* description) { cerr << "Glfw Error" << error << ":" << description << endl; });
 
     assert(glfwInit());
+
 
 // Decide GL+GLSL versions
 #if defined(IMGUI_IMPL_OPENGL_ES2)
@@ -65,6 +66,7 @@ int main(int, char**)
     // glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // 3.0+ only
 #endif
 
+
     //设置Windows窗口为无边框,透明
     glfwWindowHint(GLFW_DECORATED, GL_FALSE);
     glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
@@ -74,7 +76,7 @@ int main(int, char**)
     assert(window);
 
     glfwMakeContextCurrent(window);
-    setFpsByInterval(12); // 6x垂直同步帧率
+    glfwSwapInterval(fpsIntervalCompact); // 1/12 垂直同步帧率 60fps->5fps
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
@@ -98,12 +100,15 @@ int main(int, char**)
     chrono::steady_clock::time_point beginTime = chrono::steady_clock::now(); //UI写,计时器读
     chrono::steady_clock::duration offset = chrono::nanoseconds(0ll); //UI写,计时器读
     long long timerCount = 0ul; // 计时器写,UI读写
+
+    //三个状态 , C++ 没有thread.cancel() UI写,计时器读
     enum class TimerState
     {
         RUNNING,
         PAUSED,
         CANCELED
-    } timerState = TimerState::RUNNING; //三个状态 , C++ 没有thread.cancel() UI写,计时器读
+    } timerState = TimerState::RUNNING; 
+
     std::thread timerThread([&beginTime,&offset,&timerCount, window, &timerState]() {
         while (timerState != TimerState::CANCELED)
         {
@@ -140,7 +145,7 @@ int main(int, char**)
 
         // UI部分
         {
-            ImGui::Begin("ImGUI APP", NULL,
+            ImGui::Begin("Ez PPT Timer", NULL,
                          ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoMove |
                              ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings);
 
@@ -152,7 +157,7 @@ int main(int, char**)
             //鼠标悬停在窗口上时
             if (glfwGetWindowAttrib(window, GLFW_HOVERED))
             {
-                setFpsByInterval(1); // 提高帧率
+                glfwSwapInterval(fpsIntervalFull); // 提高帧率
                 glfwSetWindowSize(window, windowWidthFull, windowHeightFull);
                 clear_color = windowColorFull;
 
@@ -195,7 +200,7 @@ int main(int, char**)
             {
                 clear_color = windowColorCompact; // 半透明
                 glfwSetWindowSize(window, windowWidthCompact, windowHeightCompact);
-                setFpsByInterval(12);                          // 降低帧率
+                glfwSwapInterval(12);                          // 降低帧率
             }
 
             ImGui::End();

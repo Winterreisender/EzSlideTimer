@@ -80,12 +80,17 @@ build/%.o:$(IMGUI_DIR)/%.cpp
 build/%.o:$(IMGUI_DIR)/backends/%.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
+build/%.res:assets/%.rc
+	windres -i $< --input-format=rc -o $@ -O coff
+
+
+$(EXE): $(OBJS) build/main.res
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(LIBS)
+
 all: $(EXE)
 	@echo Build complete for $(ECHO_MESSAGE)
 
-
-$(EXE): $(OBJS)
-	$(CXX) -o $@ $^ $(CXXFLAGS) $(LIBS)
-
 clean:
-	rm -f $(EXE) $(OBJS)
+	rm -f $(EXE) $(OBJS) build/main.res
+
+

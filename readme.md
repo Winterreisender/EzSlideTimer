@@ -6,14 +6,26 @@
 ![screenshot1](screenshot-2.png)
 
 
-## 引用
+## 引用与致谢
 
 本项目使用了以下开源软件:
 
-| 项目                                        | 许可  |
-| ----------------------------------------- | --- |
-| [Dear ImGui](https://github.com/ocornut/imgui) | [MIT license](https://mit-license.org/) |
-| [glfw](https://www.glfw.org/) | [zlib/libpng license](https://www.glfw.org/license) |
+| 项目                                        | 许可  | 备注 |
+| ----------------------------------------- | --- | --- |
+| [Dear ImGui](https://github.com/ocornut/imgui) | [MIT license](https://mit-license.org/) | |
+| [glfw](https://www.glfw.org/) | [zlib/libpng license](https://www.glfw.org/license) | |
+| [辉光管图片(by Richard Štefún)](https://www.pexels.com/photo/2024-alarm-clock-arduino-clock-1069690/) | [Pexels](https://www.pexels.com/license/) | 作为程序图标 |
+
+<!--
+同时本项目在开发过程中离不开以下软件的支持:
+
+- Mingw-w64
+- Msys2
+- Clangd
+- 
+-->
+
+衷心感谢以上所有组织和人员。
 
 ## 版权与许可
 
