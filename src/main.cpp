@@ -1,8 +1,11 @@
 /*
 * main.cpp
 *
+* SPDX-License-Identifier: AGPL-3.0-only
+*
 * Copyright 2022 Winterreisender.
-* This file is part of the EzPptTimer.This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, only version 3 of the License.
+* This file is part of the EzPptTimer.
+* This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, only version 3 of the License.
 * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
 * You should have received a copy of the GNU Affero General Public License along with this program, see the file LICENSE. If not, see https://www.gnu.org/licenses/.
 */
@@ -185,7 +188,7 @@ int main(int, char**)
                 ImGui::SameLine();
                 if (ImGui::Button("关于"))
                 {
-                    ShellExecuteW(NULL, L"open", L"https://gitee.com/winter_reisender/EzPptTimer", NULL, NULL,
+                    ShellExecuteW(NULL, L"open", L"https://github.com/Winterreisender/EzPptTimer", NULL, NULL,
                                   SW_SHOWNORMAL);
                 }
                 
