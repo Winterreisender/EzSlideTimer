@@ -20,6 +20,8 @@ bin-release/
 .clang-format
 imgui.ini
 build/
-packages/
+packages/imgui/
 build_win32.bat
 imgui.ini
+CMakeLists.txt.user
+.cache/

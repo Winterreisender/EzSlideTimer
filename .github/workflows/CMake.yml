@@ -1,0 +1,36 @@
+name: CMake CI
+on:
+  push:
+    branches: [master]
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Fetch ImGUI in Windows
+        uses: Amadevus/pwsh-script@v2.0.1
+        with:
+          script: pwsh ./packages/fetchImGUI.ps1
+
+      - name: Setup MSYS2
+        uses: msys2/setup-msys2@v2
+        with:
+          update: true
+          install: >-
+            mingw-w64-x86_64-glfw
+            mingw-w64-x86_64-glew
+            mingw-w64-x86_64-toolchain
+            mingw-w64-x86_64-cmake
+            git
+
+      - name: Run CMake
+        run: |
+          cmake -G Ninja -B build -DCMAKE_BUILD_TYPE=Debug
+          cmake --build build
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: "build"
+          path: ./build

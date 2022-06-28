@@ -2,8 +2,6 @@
 
 简单的计时工具，可用于PPT计时。
 
-[下载](releases)
-
 ![screenshot1](screenshot-1.png)
 ![screenshot1](screenshot-2.png)
 
@@ -43,7 +41,7 @@ Made with [contrib.rocks](https://contrib.rocks).
 - Mingw-w64
 - Msys2
 - Clangd
-- 
+- UPX
 -->
 
 ## 版权与许可

@@ -21,12 +21,10 @@
 #include <thread>
 #include <chrono>
 
-#include <windows.h>
-#include <shellapi.h>
 using namespace std;
 
 #if __cplusplus < 201700L
-    #error "This program requires C++ 17 or later"
+    #error "This file requires C++ 17 or later"
 #endif
 
 int main(int, char**)
@@ -38,7 +36,7 @@ int main(int, char**)
     constexpr int windowWidthCompact = 80;
     const auto windowColorCompact = ImVec4(1.0f, 1.0f, 1.0f, 0.5f);
     constexpr int fpsIntervalCompact = 12; // 1/12 垂直同步 60fps屏幕->5fps程序
-    constexpr int fpsIntervalFull = 1; // 1 垂直同步
+    constexpr int fpsIntervalFull = 1;     // 1 垂直同步
     
     glfwSetErrorCallback(
         [](int error, const char* description) { cerr << "Glfw Error" << error << ":" << description << endl; });
@@ -188,8 +186,7 @@ int main(int, char**)
                 ImGui::SameLine();
                 if (ImGui::Button("关于"))
                 {
-                    ShellExecuteW(NULL, L"open", L"https://github.com/Winterreisender/EzPptTimer", NULL, NULL,
-                                  SW_SHOWNORMAL);
+                    system("start https://github.com/Winterreisender/EzPptTimer");
                 }
                 
                 ImGui::SameLine();
