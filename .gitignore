@@ -22,6 +22,5 @@ imgui.ini
 build/
 packages/imgui/
 build_win32.bat
-imgui.ini
 CMakeLists.txt.user
 .cache/
