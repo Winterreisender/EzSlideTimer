@@ -1,5 +1,15 @@
 # EzPptTimer
 
+![GitHub top language](https://img.shields.io/github/languages/top/Winterreisender/EzPptTimer?logo=cpp)
+![platforms](https://img.shields.io/badge/platform-windows-blue)
+![language](https://img.shields.io/badge/languages-%E4%B8%AD%E6%96%87-red)
+![license](https://img.shields.io/github/license/Winterreisender/EzPptTimer?color=663366)
+
+
+![current release](https://img.shields.io/github/v/release/Winterreisender/EzPptTimer?label=current)
+![dev release](https://img.shields.io/github/v/release/Winterreisender/EzPptTimer?label=dev&include_prereleases)
+![GitHub last commit](https://img.shields.io/github/last-commit/Winterreisender/EzPptTimer)
+
 简单的计时工具，可用于PPT计时。
 
 ![screenshot1](screenshot-1.png)
