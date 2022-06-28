@@ -13,6 +13,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 #)
 #FetchContent_MakeAvailable(ImGUI)
 
+find_package(glfw3)
+find_package(opengl)
+
 set(ImGUI_SOURCE_DIR ./packages/imgui)
 
 include_directories(
