@@ -12,15 +12,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 #    GIT_TAG v1.88
 #)
 #FetchContent_MakeAvailable(ImGUI)
+#set(ImGUI_SOURCE_DIR ${ImGUI_SOURCE_DIR})
+
 
 find_package(glfw3)
-find_package(opengl)
+find_package(OpenGL)
 
-set(ImGUI_SOURCE_DIR ./packages/imgui)
+set(ImGUI_SOURCE_DIR ./packages/imgui/)
 
-include_directories(
-    ${ImGUI_SOURCE_DIR}
-)
+message(NOTICE ${ImGUI_SOURCE_DIR})
 
 
 file(GLOB SRC
@@ -44,4 +44,8 @@ target_link_libraries(${PROJECT_NAME}
     gdi32
     opengl32
     imm32
+)
+
+target_include_directories(${PROJECT_NAME} PRIVATE
+    ${ImGUI_SOURCE_DIR}
 )
