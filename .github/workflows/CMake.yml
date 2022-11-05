@@ -39,7 +39,7 @@ jobs:
 
       - name: Install Dependents
         run: |
-          sudo apt install -y libglfw3-dev libglew-dev ninja
+          sudo apt install -y libglfw3-dev libglew-dev ninja-build
 
       - name: Run CMake
         run: |
