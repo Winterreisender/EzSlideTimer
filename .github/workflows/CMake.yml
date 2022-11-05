@@ -7,7 +7,7 @@ jobs:
   build-windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup MSYS2
         uses: msys2/setup-msys2@v2
@@ -27,7 +27,28 @@ jobs:
           cmake --build build
 
       - name: Upload
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
+        with:
+          name: artifact
+          path: build/
+  
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Dependents
+        run: |
+          sudo apt install libglfw3-dev
+          sudo apt install -y libglew-dev
+
+      - name: Run CMake
+        run: |
+          cmake -G Ninja -B build
+          cmake --build build
+
+      - name: Upload
+        uses: actions/upload-artifact@v3
         with:
           name: artifact
           path: build/
