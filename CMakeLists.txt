@@ -27,7 +27,7 @@ file(GLOB SRC
 )
 
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall")
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -mwindows -static -static-libgcc -static-libstdc++")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}") #  -mwindows -static -static-libgcc -static-libstdc++
 # add_compile_options(-Wall)
 
 
