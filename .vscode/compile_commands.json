@@ -1,0 +1,6 @@
+[
+{
+  "directory": "c:\\Home\\Code\\Github\\EzPptTimer",
+  "arguments": ["x86_64-w64-mingw32-g++.exe", "-c", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-DGLFW_INCLUDE_NONE", "-I", "C:\\Users\\guest_3slo32w\\AppData\\Local\\.xmake\\packages\\i\\imgui\\v1.88\\a33a4362b6f1475abecbeb21e7147b1b\\include", "-I", "C:\\Users\\guest_3slo32w\\AppData\\Local\\.xmake\\packages\\i\\imgui\\v1.88\\a33a4362b6f1475abecbeb21e7147b1b\\include\\imgui", "-I", "C:\\Users\\guest_3slo32w\\AppData\\Local\\.xmake\\packages\\i\\imgui\\v1.88\\a33a4362b6f1475abecbeb21e7147b1b\\include\\backends", "-I", "C:\\Users\\guest_3slo32w\\AppData\\Local\\.xmake\\packages\\g\\glfw\\3.3.8\\d12e591897c9472fb7d3725fa5811388\\include", "-DNDEBUG", "-o", "build\\.objs\\EzPptTimer\\windows\\x64\\release\\src\\main.cpp.obj", "src\\main.cpp"],
+  "file": "src\\main.cpp"
+}]

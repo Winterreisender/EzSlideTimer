@@ -1,0 +1,126 @@
+{
+    find_programver = {
+        ["C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.33.31629\\bin\\HostX64\\x64\\cl.exe"] = false,
+        ["C:\\Users\\guest_3slo32w\\scoop\\apps\\msys2\\current\\mingw64\\bin\\x86_64-w64-mingw32-g++"] = "12.2.0"
+    },
+    find_program_fetch_package_xmake = {
+        cmake = [[C:\Users\guest_3slo32w\scoop\apps\msys2\current\mingw64\bin\cmake]]
+    },
+    ["lib.detect.has_flags"] = {
+        ["windows_x64_C:\\Users\\guest_3slo32w\\scoop\\apps\\msys2\\current\\mingw64\\bin\\x86_64-w64-mingw32-g++_12.2.0_cxx_cxflags__-DNDEBUG"] = true,
+        ["windows_x64_C:\\Users\\guest_3slo32w\\scoop\\apps\\msys2\\current\\mingw64\\bin\\x86_64-w64-mingw32-g++_12.2.0_cxx___-O3"] = true,
+        ["windows_x64_C:\\Users\\guest_3slo32w\\scoop\\apps\\msys2\\current\\mingw64\\bin\\x86_64-w64-mingw32-g++_12.2.0_cxx_cxflags__-fvisibility-inlines-hidden"] = true
+    },
+    find_package_windows_x64_fetch_package_xmake = {
+        ["xmake::glfw_d12e591897c9472fb7d3725fa5811388_release_3.3.8_external"] = {
+            syslinks = {
+                "user32",
+                "shell32",
+                "gdi32"
+            },
+            linkdirs = {
+                [[C:\Users\guest_3slo32w\AppData\Local\.xmake\packages\g\glfw\3.3.8\d12e591897c9472fb7d3725fa5811388\lib]]
+            },
+            links = {
+                "glfw3"
+            },
+            libfiles = {
+                [[C:\Users\guest_3slo32w\AppData\Local\.xmake\packages\g\glfw\3.3.8\d12e591897c9472fb7d3725fa5811388\lib\glfw3.lib]]
+            },
+            sysincludedirs = {
+                [[C:\Users\guest_3slo32w\AppData\Local\.xmake\packages\g\glfw\3.3.8\d12e591897c9472fb7d3725fa5811388\include]]
+            },
+            defines = "GLFW_INCLUDE_NONE"
+        },
+        ["xmake::imgui_a33a4362b6f1475abecbeb21e7147b1b_release_v1.88_external"] = {
+            syslinks = "imm32",
+            linkdirs = {
+                [[C:\Users\guest_3slo32w\AppData\Local\.xmake\packages\i\imgui\v1.88\a33a4362b6f1475abecbeb21e7147b1b\lib]]
+            },
+            links = {
+                "imgui"
+            },
+            license = "MIT",
+            libfiles = {
+                [[C:\Users\guest_3slo32w\AppData\Local\.xmake\packages\i\imgui\v1.88\a33a4362b6f1475abecbeb21e7147b1b\lib\imgui.lib]]
+            },
+            version = "v1.88",
+            sysincludedirs = {
+                [[C:\Users\guest_3slo32w\AppData\Local\.xmake\packages\i\imgui\v1.88\a33a4362b6f1475abecbeb21e7147b1b\include]],
+                [[C:\Users\guest_3slo32w\AppData\Local\.xmake\packages\i\imgui\v1.88\a33a4362b6f1475abecbeb21e7147b1b\include\imgui]],
+                [[C:\Users\guest_3slo32w\AppData\Local\.xmake\packages\i\imgui\v1.88\a33a4362b6f1475abecbeb21e7147b1b\include\backends]]
+            },
+            static = true
+        }
+    },
+    ["detect.sdks.find_mingw"] = {
+        mingw = {
+            bindir = [[C:\Users\guest_3slo32w\scoop\apps\msys2\current\mingw64\bin]],
+            sdkdir = [[C:\Users\guest_3slo32w\scoop\apps\msys2\current\mingw64]],
+            cross = "x86_64-w64-mingw32-"
+        }
+    },
+    find_programver_fetch_package_xmake = {
+        ["C:\\Users\\guest_3slo32w\\scoop\\apps\\msys2\\current\\mingw64\\bin\\cmake"] = "3.24.3"
+    },
+    find_program_fetch_package_system = {
+        cmake = "cmake"
+    },
+    find_program_mingw_arch_x64_plat_windows_checktoolld = {
+        ["x86_64-w64-mingw32-g++"] = [[C:\Users\guest_3slo32w\scoop\apps\msys2\current\mingw64\bin\x86_64-w64-mingw32-g++]]
+    },
+    ["detect.tools.gcc.has_cflags"] = {
+        ["C:\\Users\\guest_3slo32w\\scoop\\apps\\msys2\\current\\mingw64\\bin\\x86_64-w64-mingw32-g++_12.2.0"] = {
+            ["-save-temps"] = true,
+            ["--target-help"] = true,
+            ["-print-multi-os-directory"] = true,
+            ["-S"] = true,
+            ["-pipe"] = true,
+            ["-print-multi-lib"] = true,
+            ["-c"] = true,
+            ["-print-multi-directory"] = true,
+            ["-Xassembler"] = true,
+            ["-shared"] = true,
+            ["-no-canonical-prefixes"] = true,
+            ["-print-search-dirs"] = true,
+            ["-Xlinker"] = true,
+            ["-time"] = true,
+            ["-dumpspecs"] = true,
+            ["-pass-exit-codes"] = true,
+            ["-dumpversion"] = true,
+            ["-x"] = true,
+            ["-print-multiarch"] = true,
+            ["-v"] = true,
+            ["-print-sysroot-headers-suffix"] = true,
+            ["-E"] = true,
+            ["-B"] = true,
+            ["-print-libgcc-file-name"] = true,
+            ["-o"] = true,
+            ["--help"] = true,
+            ["-dumpmachine"] = true,
+            ["-pie"] = true,
+            ["-print-sysroot"] = true,
+            ["--param"] = true,
+            ["-Xpreprocessor"] = true,
+            ["--version"] = true
+        }
+    },
+    find_program = {
+        git = "git",
+        gdc = false,
+        ["cl.exe"] = [[C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\bin\HostX64\x64\cl.exe]],
+        ["C:\\Users\\guest_3slo32w\\scoop\\apps\\msys2\\current\\mingw64\\bin\\x86_64-w64-mingw32-g++"] = [[C:\Users\guest_3slo32w\scoop\apps\msys2\current\mingw64\bin\x86_64-w64-mingw32-g++]],
+        dmd = false,
+        zig = "zig",
+        ldc2 = false,
+        tar = "tar",
+        unzip = "unzip",
+        gzip = "gzip"
+    },
+    find_program_mingw_arch_x64_plat_windows_checktoolcxx = {
+        ["x86_64-w64-mingw32-g++"] = [[C:\Users\guest_3slo32w\scoop\apps\msys2\current\mingw64\bin\x86_64-w64-mingw32-g++]]
+    },
+    find_programver_fetch_package_system = {
+        cmake = "3.24.3"
+    }
+}

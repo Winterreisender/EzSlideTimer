@@ -1,0 +1,50 @@
+{
+    imgui = {
+        __requirestr = "imgui v1.88",
+        defines = "GLFW_INCLUDE_NONE",
+        links = {
+            "imgui",
+            "glfw3",
+            "opengl32"
+        },
+        sysincludedirs = {
+            [[C:\Users\guest_3slo32w\AppData\Local\.xmake\packages\i\imgui\v1.88\a33a4362b6f1475abecbeb21e7147b1b\include]],
+            [[C:\Users\guest_3slo32w\AppData\Local\.xmake\packages\i\imgui\v1.88\a33a4362b6f1475abecbeb21e7147b1b\include\imgui]],
+            [[C:\Users\guest_3slo32w\AppData\Local\.xmake\packages\i\imgui\v1.88\a33a4362b6f1475abecbeb21e7147b1b\include\backends]],
+            [[C:\Users\guest_3slo32w\AppData\Local\.xmake\packages\g\glfw\3.3.8\d12e591897c9472fb7d3725fa5811388\include]]
+        },
+        __extrainfo = {
+            configs = {
+                vs_runtime = "MT",
+                glfw_opengl3 = true
+            }
+        },
+        version = "v1.88",
+        syslinks = {
+            "imm32",
+            "user32",
+            "shell32",
+            "gdi32"
+        },
+        linkdirs = {
+            [[C:\Users\guest_3slo32w\AppData\Local\.xmake\packages\i\imgui\v1.88\a33a4362b6f1475abecbeb21e7147b1b\lib]],
+            [[C:\Users\guest_3slo32w\AppData\Local\.xmake\packages\g\glfw\3.3.8\d12e591897c9472fb7d3725fa5811388\lib]]
+        },
+        __installdir = [[C:\Users\guest_3slo32w\AppData\Local\.xmake\packages\i\imgui\v1.88\a33a4362b6f1475abecbeb21e7147b1b]],
+        license = "MIT",
+        envs = {
+            PATH = {
+                [[C:\Users\guest_3slo32w\AppData\Local\.xmake\packages\i\imgui\v1.88\a33a4362b6f1475abecbeb21e7147b1b\bin]],
+                [[C:\Users\guest_3slo32w\AppData\Local\.xmake\packages\c\cmake\3.24.2\5430022e3acc47008f94857b498c53c6\bin]],
+                [[C:\Users\guest_3slo32w\AppData\Local\.xmake\packages\o\opengl\latest\8574311f4b544fa89a3d8c3ee79d1929\bin]],
+                [[C:\Users\guest_3slo32w\AppData\Local\.xmake\packages\g\glfw\3.3.8\d12e591897c9472fb7d3725fa5811388\bin]]
+            }
+        },
+        libfiles = {
+            [[C:\Users\guest_3slo32w\AppData\Local\.xmake\packages\i\imgui\v1.88\a33a4362b6f1475abecbeb21e7147b1b\lib\imgui.lib]],
+            [[C:\Users\guest_3slo32w\AppData\Local\.xmake\packages\g\glfw\3.3.8\d12e591897c9472fb7d3725fa5811388\lib\glfw3.lib]]
+        },
+        static = true,
+        __enabled = true
+    }
+}

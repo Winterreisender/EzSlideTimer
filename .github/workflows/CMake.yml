@@ -9,11 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Fetch ImGUI in Windows
-        uses: Amadevus/pwsh-script@v2.0.1
-        with:
-          script: pwsh ./packages/fetchImGUI.ps1
-
       - name: Setup MSYS2
         uses: msys2/setup-msys2@v2
         with:
@@ -27,11 +22,10 @@ jobs:
 
       - name: Run CMake
         run: |
-          cmake -G Ninja -B build -DCMAKE_BUILD_TYPE=Debug
+          cmake -G Ninja -B build
           cmake --build build
 
       - name: Upload artifact
         uses: actions/upload-artifact@v1.0.0
         with:
-          name: "build"
-          path: ./build
+          path: ./build/EzPptTimer.exe
