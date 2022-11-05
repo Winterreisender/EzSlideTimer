@@ -16,12 +16,7 @@ FetchContent_MakeAvailable(ImGUI)
 #set(imgui_SOURCE_DIR ./packages/imgui/)
 
 
-find_package(glfw3)
 find_package(OpenGL)
-
-
-message(NOTICE ${imgui_SOURCE_DIR})
-
 
 file(GLOB SRC
     ./src/main.cpp
@@ -30,7 +25,6 @@ file(GLOB SRC
     ${imgui_SOURCE_DIR}/backends/imgui_impl_glfw.cpp
     ${imgui_SOURCE_DIR}/backends/imgui_impl_opengl3.cpp
 )
-
 
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -mwindows -static -static-libgcc -static-libstdc++")

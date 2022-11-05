@@ -21,6 +21,7 @@ jobs:
             git
 
       - name: Run CMake
+        shell: msys2 {0}
         run: |
           cmake -G Ninja -B build
           cmake --build build
