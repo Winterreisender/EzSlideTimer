@@ -26,7 +26,8 @@ jobs:
           cmake -G Ninja -B build
           cmake --build build
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v1.0.0
+      - name: Upload
+        uses: actions/upload-artifact@v2
         with:
-          path: ./build/EzPptTimer.exe
+          name: artifact
+          path: build/
