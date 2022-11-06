@@ -23,10 +23,6 @@
 
 using namespace std;
 
-#if __cplusplus < 201700L
-    #error "This file requires C++ 17 or later"
-#endif
-
 int main(int, char**)
 {
     constexpr int windowHeightCompact = 35;
