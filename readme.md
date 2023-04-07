@@ -1,7 +1,6 @@
-# EzPptTimer
+# EzSlideTimer
 
 ![C++](https://img.shields.io/badge/C%2B%2B-00599C?logo=cplusplus&logoColor=white)
-![platforms](https://img.shields.io/badge/platform-windows-blue)
 ![language](https://img.shields.io/badge/languages-%E4%B8%AD%E6%96%87-red)
 ![license](https://img.shields.io/github/license/Winterreisender/EzPptTimer?color=663366)
 
@@ -11,16 +10,11 @@
 
 简单的计时工具，可用于PPT计时。
 
-![screenshot1](screenshot-1.png)
-![screenshot1](screenshot-2.png)
+![screenshot1](screenshot.webp)
 
-## 贡献者指南
+## 参与进来
 
-本项目欢迎各种建议和贡献。
-
-### Code of Conduct
-
-本项目实行[No Code of Conduct](CODE_OF_CONDUCT.md): 我们欢迎任何贡献,别的都不重要。
+本项目欢迎所有Bug报告、Pull Request和其他贡献。
 
 ## 引用
 
@@ -43,7 +37,7 @@
 
 ## 版权与许可
 
-Copyright 2022 Winterreisender.
+Copyright 2022-2023 Winterreisender.
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, version 3.
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
