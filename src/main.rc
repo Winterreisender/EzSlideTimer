@@ -1,0 +1,2 @@
+GLFW_ICON ICON "../assets/main.ico"
+IDI_APPLICATION ICON "../assets/main.ico"

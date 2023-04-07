@@ -1,29 +1,38 @@
 /*
-* main.cpp
-*
-* SPDX-License-Identifier: AGPL-3.0-only
-*
-* Copyright 2022 Winterreisender.
-* This file is part of the EzPptTimer.
-* This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, only version 3 of the License.
-* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
-* You should have received a copy of the GNU Affero General Public License along with this program, see the file LICENSE. If not, see https://www.gnu.org/licenses/.
-*/
+ * main.cpp
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ *
+ * Copyright 2022 Winterreisender.
+ * This file is part of the EzSlideTimer.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, only version 3 of the License.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
+ * You should have received a copy of the GNU Affero General Public License along with this program, see the file LICENSE. If not, see https://www.gnu.org/licenses/.
+ */
 
+#include <imgui.h>
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
-#include <imgui.h>
-#include <imgui_internal.h>
 
 #include <GLFW/glfw3.h>
+#define GL_SILENCE_DEPRECATION
+#if defined(IMGUI_IMPL_OPENGL_ES2)
+#include <GLES2/gl2.h>
+#endif
+#include <gl/glew.h>
+
+#if defined(_MSC_VER) && (_MSC_VER >= 1900) && !defined(IMGUI_DISABLE_WIN32_FUNCTIONS)
+#pragma comment(lib, "legacy_stdio_definitions")
+#endif
 
 #include <iostream>
 #include <thread>
 #include <chrono>
-
 using namespace std;
 
-int main(int, char**)
+constexpr auto AppName = "EzSlideTimer";
+
+int main(int, char **)
 {
     constexpr int windowHeightCompact = 35;
     constexpr int windowHeightFull = 42;
@@ -33,43 +42,42 @@ int main(int, char**)
     const auto windowColorCompact = ImVec4(1.0f, 1.0f, 1.0f, 0.5f);
     constexpr int fpsIntervalCompact = 12; // 1/12 垂直同步 60fps屏幕->5fps程序
     constexpr int fpsIntervalFull = 1;     // 1 垂直同步
-    
+
     glfwSetErrorCallback(
-        [](int error, const char* description) { cerr << "Glfw Error" << error << ":" << description << endl; });
+        [](int error, const char *description)
+        { cerr << "Glfw Error" << error << ":" << description << endl; });
 
     assert(glfwInit());
-
 
 // Decide GL+GLSL versions
 #if defined(IMGUI_IMPL_OPENGL_ES2)
     // GL ES 2.0 + GLSL 100
-    const char* glsl_version = "#version 100";
+    const char *glsl_version = "#version 100";
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
     glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
 #elif defined(__APPLE__)
     // GL 3.2 + GLSL 150
-    const char* glsl_version = "#version 150";
+    const char *glsl_version = "#version 150";
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // 3.2+ only
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);           // Required on Mac
 #else
     // GL 3.0 + GLSL 130
-    const char* glsl_version = "#version 130";
+    const char *glsl_version = "#version 130";
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
     // glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
     // glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // 3.0+ only
 #endif
 
-
-    //设置Windows窗口为无边框,透明
-    glfwWindowHint(GLFW_DECORATED, GL_FALSE);
+    // 设置Windows窗口为无边框,透明
+    glfwWindowHint(GLFW_DECORATED, false);
     glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
 
     // 创建窗口
-    GLFWwindow* window = glfwCreateWindow(windowWidthFull, windowHeightFull, "EzPptTimer", NULL, NULL);
+    GLFWwindow *window = glfwCreateWindow(windowWidthFull, windowHeightFull, AppName, NULL, NULL);
     assert(window);
 
     glfwMakeContextCurrent(window);
@@ -78,35 +86,36 @@ int main(int, char**)
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO();
+    ImGuiIO &io = ImGui::GetIO();
 
     ImGui::StyleColorsLight();
 
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
 
-    //设置默认字体
-    ImFont* font = io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\MSYH.ttc", 21.0f, NULL,
+    // 设置默认字体
+    ImFont *font = io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\MSYH.ttc", 21.0f, NULL,
                                                 io.Fonts->GetGlyphRangesChineseSimplifiedCommon());
     IM_ASSERT(font != NULL);
 
-    //设置默认背景色
+    // 设置默认背景色
     ImVec4 clear_color = windowColorCompact; // 全透明
 
-    //计时器线程
-    chrono::steady_clock::time_point beginTime = chrono::steady_clock::now(); //UI写,计时器读
-    chrono::steady_clock::duration offset = chrono::nanoseconds(0ll); //UI写,计时器读
-    long long timerCount = 0ul; // 计时器写,UI读写
+    // 计时器线程
+    chrono::steady_clock::time_point beginTime = chrono::steady_clock::now(); // UI写,计时器读
+    chrono::steady_clock::duration offset = chrono::nanoseconds(0ll);         // UI写,计时器读
+    long long timerCount = 0ul;                                               // 计时器写,UI读写
 
-    //三个状态 , C++ 没有thread.cancel() UI写,计时器读
+    // 三个状态 , C++ 没有thread.cancel() UI写,计时器读
     enum class TimerState
     {
         RUNNING,
         PAUSED,
         CANCELED
-    } timerState = TimerState::RUNNING; 
+    } timerState = TimerState::RUNNING;
 
-    std::thread timerThread([&beginTime,&offset,&timerCount, window, &timerState]() {
+    std::thread timerThread([&beginTime, &offset, &timerCount, window, &timerState]()
+                            {
         while (timerState != TimerState::CANCELED)
         {
             std::this_thread::sleep_for(chrono::milliseconds(500ll));
@@ -122,8 +131,7 @@ int main(int, char**)
                 return;
             }
             glfwSetWindowAttrib(window, GLFW_FLOATING, GLFW_TRUE);
-        }
-    });
+        } });
     timerThread.detach();
 
     // 主循环
@@ -136,7 +144,7 @@ int main(int, char**)
         ImGui::NewFrame();
 
         // Imgui窗口占满Windows窗口
-        const ImGuiViewport* viewport = ImGui::GetMainViewport();
+        const ImGuiViewport *viewport = ImGui::GetMainViewport();
         ImGui::SetNextWindowPos(viewport->Pos);
         ImGui::SetNextWindowSize(viewport->Size);
 
@@ -151,7 +159,7 @@ int main(int, char**)
             ImGui::SameLine();
             // printf("Average FPS: %.1f\r", ImGui::GetIO().Framerate);
 
-            //鼠标悬停在窗口上时
+            // 鼠标悬停在窗口上时
             if (glfwGetWindowAttrib(window, GLFW_HOVERED))
             {
                 glfwSwapInterval(fpsIntervalFull); // 提高帧率
@@ -178,13 +186,13 @@ int main(int, char**)
                     beginTime = chrono::steady_clock::now();
                     offset = chrono::nanoseconds(0ll);
                 }
-               
+
                 ImGui::SameLine();
                 if (ImGui::Button("关于"))
                 {
-                    system("start https://github.com/Winterreisender/EzPptTimer");
+                    system("start https://github.com/Winterreisender/EzSlideTimer");
                 }
-                
+
                 ImGui::SameLine();
                 if (ImGui::Button("退出"))
                 {
@@ -196,7 +204,7 @@ int main(int, char**)
             {
                 clear_color = windowColorCompact; // 半透明
                 glfwSetWindowSize(window, windowWidthCompact, windowHeightCompact);
-                glfwSwapInterval(12);                          // 降低帧率
+                glfwSwapInterval(12); // 降低帧率
             }
 
             ImGui::End();

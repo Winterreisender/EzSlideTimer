@@ -18,9 +18,8 @@ bin-release/
 # information for Eclipse / Flash Builder.
 .clangd
 .clang-format
-imgui.ini
+
+.xmake
 build/
-packages/imgui/
-build_win32.bat
-CMakeLists.txt.user
-.cache/
+.vscode
+
