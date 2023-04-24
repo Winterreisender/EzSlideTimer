@@ -1,7 +1,6 @@
 # EzSlideTimer
 
 ![C++](https://img.shields.io/badge/C%2B%2B-00599C?logo=cplusplus&logoColor=white)
-![language](https://img.shields.io/badge/languages-%E4%B8%AD%E6%96%87-red)
 ![license](https://img.shields.io/github/license/Winterreisender/EzPptTimer?color=663366)
 
 ![current release](https://img.shields.io/github/v/release/Winterreisender/EzPptTimer?label=current)
